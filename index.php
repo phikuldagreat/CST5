@@ -46,26 +46,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
     <div class="auth-right">
         <div class="auth-card">
 
-            <h1>Welcome back.</h1>
+            <h1>Welcome.</h1>
             <p style="text-align:center; font-size: 0.85rem; margin-bottom: 1.5rem;">Sign in to your account</p>
 
             <?php if (!empty($message)): ?>
-                <p style="color: #4ac880;"><?= $message ?></p>
+                <div class="alert alert-success"><?= $message ?></div>
             <?php endif; ?>
 
             <?php if (!empty($errors)): ?>
-                <p style="color: #e07070;"><?= $errors ?></p>
+                <div class="alert alert-danger"><?= $errors ?></div>
             <?php endif; ?>
 
             <form method="POST">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" placeholder="Enter your username" required>
+                    <input type="text" name="username" placeholder="Enter username" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" placeholder="Enter your password" required>
+                    <input type="password" name="password" placeholder="Enter password" required>
                 </div>
 
                 <button type="submit" name="login">Login</button>

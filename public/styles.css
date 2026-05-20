@@ -475,3 +475,55 @@ button[type="submit"]:hover {
   padding: 3rem;
   border-radius: 10px;
 }
+
+/* =========================
+   STATUS BADGES
+========================= */
+.badge-complete {
+  background: #1a3a2a;
+  color: #4ac880;
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.badge-pending {
+  background: #3a3010;
+  color: #f0d080;
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.td-date {
+  color: #4a6a7a;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.td-actions {
+  text-align: center;
+}
+
+.btn-action {
+  width: auto;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.sidebar-user {
+  font-size: 0.8rem;
+  color: #4a6a7a;
+}
+
+.sidebar-user strong {
+  color: #7eb8d4;
+}
+
+.td-empty {
+  color: #4a6a7a;
+  text-align: center;
+  padding: 2rem;
+}

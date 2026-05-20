@@ -31,6 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit"])) {
     $id = $_POST["task_id"];
     $title = $_POST["title"];
     $controller->edit($id, $user_id, $title);
+    header("Location: index.php?updated=1");
+    die();
+}
+
+//shows message after updating a task
+if (isset($_GET['updated'])) {
     $message = "Task updated.";
 }
 
@@ -49,6 +55,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["complete"])) {
 }
 
 $tasks = $controller->getAll($user_id);
+
+$greetings = [
+    "Welcome",
+    "Good day",
+    "Time to work",
+    "Hello there",
+    "Work, work",
+    "Let's get workin'"
+];
+
+$greeting = $greetings[array_rand($greetings)];
 ?>
 
 <!-- LOGIC MUST BE ON TOP (THE BULK OF YOUR PHP CODE) -->
@@ -66,7 +83,7 @@ $tasks = $controller->getAll($user_id);
             <a href="index.php" class="sidebar-link active">Tasks</a>
         </nav>
         <div class="sidebar-footer">
-            <span style="font-size: 0.8rem; color: #4a6a7a;">Logged in as<br><strong style="color: #7eb8d4;"><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
+            <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
             <a href="/finalexam/logout.php" class="btn btn-danger" style="width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: block; text-align: center;">Logout</a>
         </div>
     </aside>
@@ -102,20 +119,20 @@ $tasks = $controller->getAll($user_id);
             </thead>
             <tbody>
                 <?php if (empty($tasks)): ?>
-                    <tr><td colspan="4" style="color: #4a6a7a; text-align:center; padding: 2rem;">No tasks yet. Add one above.</td></tr>
+                    <tr><td colspan="4" class="td-empty">No tasks yet. Add one above.</td></tr>
                 <?php else: ?>
                     <?php foreach ($tasks as $task): ?>
                     <tr class="<?= $task['status'] === 'complete' ? 'row-complete' : 'row-pending' ?>">
                         <td><?= htmlspecialchars($task['title']) ?></td>
                         <td>
                             <?php if ($task['status'] === 'complete'): ?>
-                                <span style="background: #1a3a2a; color: #4ac880; border-radius: 20px; padding: 0.2rem 0.75rem; font-size: 0.8rem; font-weight: 500;">✓ Complete</span>
+                                <span class="badge-complete">✓ Complete</span>
                             <?php else: ?>
-                                <span style="background: #3a3010; color: #f0d080; border-radius: 20px; padding: 0.2rem 0.75rem; font-size: 0.8rem; font-weight: 500;">● Pending</span>
+                                <span class="badge-pending">● Pending</span>
                             <?php endif; ?>
                         </td>
-                        <td style="color: #4a6a7a; font-size: 0.85rem;"><?= date('M d, Y', strtotime($task['created_at'])) ?></td>
-                        <td style="text-align: center;">
+                            <td class="td-date"><?= date('M d, Y', strtotime($task['created_at'])) ?></td>
+                            <td class="td-actions">
                             <div class="flex" style="gap: 0.5rem; align-items: center; justify-content: center;">
 
                                 <?php if (isset($_GET['edit_id']) && $_GET['edit_id'] == $task['id']): ?>
