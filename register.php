@@ -60,12 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
             <form method="POST">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" placeholder="Enter your username" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" placeholder="Enter your password" required>
                 </div>
 
                 <button type="submit" name="register">Register</button>
