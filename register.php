@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-var_dump($SERVER_NAME, $USERNAME, $DB_NAME, $DB_PORT);
-die();
-
 require_once __DIR__ . '/models/account.php';
 require_once __DIR__ . '/controllers/account.php';
 require_once __DIR__ . '/public/database.config.php';
+
+var_dump($SERVER_NAME, $USERNAME, $DB_NAME, $DB_PORT);
+die();
 
 $message = "";
 $errors = "";
