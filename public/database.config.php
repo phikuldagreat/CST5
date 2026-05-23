@@ -4,7 +4,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+// Using safeLoad() instead of load() so it won't crash if .env doesn't exist
+$dotenv->safeLoad();
 
 $SERVER_NAME = $_ENV['DB_HOST'];
 $USERNAME = $_ENV['DB_USER'];
