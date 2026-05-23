@@ -651,7 +651,7 @@ button[type="submit"]:hover {
   letter-spacing: 0.08em;
   color: #4a6a7a;
   margin-bottom: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .sidebar-folder-item {
@@ -668,14 +668,17 @@ button[type="submit"]:hover {
   font-size: 0.7rem;
   width: auto;
   padding: 0.2rem 0.4rem;
+  border-radius: 4px;
 }
 
 .sidebar-folder-item:hover .sidebar-folder-delete {
   color: #4a6a7a;
+  background: #111f2c;
 }
 
 .sidebar-folder-delete:hover {
   color: #e07070 !important;
+  background: #111f2c !important;
   opacity: 1;
 }
 
@@ -690,6 +693,9 @@ button[type="submit"]:hover {
   flex: 1;
   padding: 0.3rem 0.5rem;
   font-size: 0.8rem;
+  background: #111f2c;
+  border: 1px dashed #2a3a4a;
+  color: #c8dde8;
 }
 
 .sidebar-add-folder {
@@ -714,14 +720,15 @@ button[type="submit"]:hover {
 }
 
 .sidebar-add-folder-btn {
-  background: none;
+  background: #111f2c;
   border: none;
   color: #7eb8d4;
   font-size: 0.8rem;
   cursor: pointer;
-  text-align: left;
-  padding: 0.2rem 0;
-  width: auto;
+  text-align: center;
+  padding: 0.4rem 0;
+  width: 100%;
+  border-radius: 6px;
 }
 
 .sidebar-add-folder-btn:hover {
