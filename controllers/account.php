@@ -22,17 +22,25 @@ class AccountController {
         $check->execute([$username]);
 
         if ($check->rowCount() > 0) {
-            return ['success' => false, 'message' => 'Username already taken.']; // username taken
+            return ['success' => false, 'message' => 'Username already taken.'];
         }
 
+        // Validate password length
         if (strlen($password) < 8) {
-            return ['success' => false, 'message' => 'Password must be at least 8 characters.']; // password is less than 8 characters
-
-        // hash the password before storing
+            return ['success' => false, 'message' => 'Password must be at least 8 characters.'];
+        }
+        
+        // Hash the password before storing
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->conn->prepare("INSERT INTO accounts (username, password) VALUES (?, ?)");
-        return $stmt->execute([$username, $hashed]);
+        $success = $stmt->execute([$username, $hashed]);
+
+        // Return a proper success/failure response
+        if ($success) {
+            return ['success' => true, 'message' => 'Account created successfully.'];
+        } else {
+            return ['success' => false, 'message' => 'Failed to create account.'];
         }
     }
     
