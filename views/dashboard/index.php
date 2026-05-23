@@ -107,12 +107,16 @@ $greeting = $greetings[array_rand($greetings)];
     <!-- sidebar -->
     <aside class="sidebar">
         <div class="sidebar-brand">Trakkr.</div>
-        <div class="sidebar-section-label">Folders</div>
+
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link <?= !$active_folder ? 'active' : '' ?>">All Tasks</a>
+        </nav>
+
+        <div class="sidebar-section-label">Folders</div>
+        <nav class="sidebar-nav">
             <?php foreach ($folders as $folder): ?>
-            <div class="sidebar-folder-item <?= $active_folder == $folder['id'] ? 'active' : '' ?>">
-                <a href="?folder=<?= $folder['id'] ?>" class="sidebar-link <?= $active_folder == $folder['id'] ? 'active' : '' ?>" style="flex: 1;">
+            <div class="sidebar-folder-item">
+                <a href="?folder=<?= $folder['id'] ?>" class="sidebar-link <?= $active_folder == $folder['id'] ? 'active' : '' ?>">
                     📁 <?= htmlspecialchars($folder['name']) ?>
                 </a>
                 <form method="POST" style="display:inline;">
@@ -125,7 +129,7 @@ $greeting = $greetings[array_rand($greetings)];
 
         <form method="POST" class="sidebar-add-folder">
             <input type="text" name="folder_name" placeholder="New folder..." required>
-            <button type="submit" name="add_folder" class="btn btn-primary btn-action">+</button>
+            <button type="submit" name="add_folder" class="sidebar-add-folder-btn">+ Add Folder</button>
         </form>
         <div class="sidebar-footer">
             <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
