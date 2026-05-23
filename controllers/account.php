@@ -22,20 +22,20 @@ class AccountController {
         $check->execute([$username]);
 
         if ($check->rowCount() > 0) {
-            return false; // username taken
+            return ['success' => false, 'message' => 'Username already taken.']; // username taken
         }
 
         if (strlen($password) < 8) {
-        $errors = "Password must be at least 8 characters.";
-    } else
+            return ['success' => false, 'message' => 'Password must be at least 8 characters.']; // password is less than 8 characters
 
         // hash the password before storing
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->conn->prepare("INSERT INTO accounts (username, password) VALUES (?, ?)");
         return $stmt->execute([$username, $hashed]);
+        }
     }
-
+    
     function login($username, $password) {
         // account reading logic
         $stmt = $this->conn->prepare("SELECT id, username, password FROM accounts WHERE username = ?");

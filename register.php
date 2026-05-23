@@ -15,15 +15,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
     $credentials = new Account($username, $password);
     $controller = new AccountController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 
+    // get result array
     $result = $controller->register(
         $credentials->username,
         $credentials->password
     );
 
-    if ($result) {
-        $message = "Account created! You can now login.";
+    // checks if result is an array
+    if (is_array($result) && $result['success']) {
+        $message = $result['message'];
     } else {
-        $errors = "Registration failed. Try again.";
+        $errors = is_array($result) ? $result['message'] : "Registration failed. Try again.";
     }
 }
 ?>
