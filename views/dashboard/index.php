@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../models/task.php';
 require_once __DIR__ . '/../../controllers/task.php';
 require_once __DIR__ . '/../../public/database.config.php';
 
-$controller = new TaskController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME);
+$controller = new TaskController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 $user_id = $_SESSION['user_id'];
 $message = "";
 $errors = "";

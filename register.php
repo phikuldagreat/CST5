@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
     $password = $_POST["password"] ?? "";
 
     $credentials = new Account($username, $password);
-    $controller = new AccountController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME);
+    $controller = new AccountController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 
     $result = $controller->register(
         $credentials->username,

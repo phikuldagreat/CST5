@@ -3,11 +3,10 @@
 class TaskController {
     private $conn;
 
-    function __construct($server_name, $username, $password, $db_name)
+    function __construct($server_name, $username, $password, $db_name, $port = 3306)
     {
-        //connects to the SQL server
         $this->conn = new PDO(
-            "mysql:host=$server_name;port=3306;dbname=$db_name;charset=utf8",
+            "mysql:host=$server_name;port=$port;dbname=$db_name;charset=utf8",
             $username,
             $password
         );
