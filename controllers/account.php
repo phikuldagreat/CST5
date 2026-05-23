@@ -8,23 +8,21 @@ class AccountController {
     function __construct($server_name, $username, $password, $db_name)
     {
         //connect to the SQL server
-        $this->conn = new mysqli(
-            $server_name,
+        $this->conn = new PDO(
+            "mysql:host=$server_name;dbname=$db_name;charset=utf8",
             $username,
-            $password,
-            $db_name
+            $password
         );
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     function register($username, $password) {
         // account creation logic
         // check if username already exists
         $check = $this->conn->prepare("SELECT id FROM accounts WHERE username = ?");
-        $check->bind_param("s", $username);
-        $check->execute();
-        $check->store_result();
+        $check->execute([$username]);
 
-        if ($check->num_rows > 0) {
+        if ($check->rowCount() > 0) {
             return false; // username taken
         }
 
@@ -32,27 +30,21 @@ class AccountController {
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->conn->prepare("INSERT INTO accounts (username, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $hashed);
-
-        return $stmt->execute();
+        return $stmt->execute([$username, $hashed]);
     }
 
     function login($username, $password) {
         // account reading logic
         $stmt = $this->conn->prepare("SELECT id, username, password FROM accounts WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt->execute([$username]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result->num_rows === 0) {
+        if (!$row) {
             return false; // username not found
         }
 
-        $row = $result->fetch_assoc();
-
         if (!password_verify($password, $row['password'])) {
-            // if password is wrong
-            return false; 
+            return false; // if password is wrong
         }
 
         // store in session
