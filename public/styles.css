@@ -357,6 +357,26 @@ button[type="submit"] {
   cursor: pointer;
 }
 
+button[type="submit"].sidebar-folder-delete,
+button[type="submit"].sidebar-add-folder-btn {
+  background: #111f2c;
+  color: transparent;
+  border: none;
+  border-radius: 4px;
+  width: auto;
+  padding: 0.2rem 0.4rem;
+}
+
+button[type="submit"].sidebar-add-folder-btn {
+  color: #7eb8d4;
+  border: 1px solid #1e2f3e;
+  border-radius: 6px;
+  width: 100%;
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 button[type="submit"]:hover {
   background: #5a9ec0;
 }
@@ -394,7 +414,6 @@ button[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  flex: 1;
 }
 
 .sidebar-link {
