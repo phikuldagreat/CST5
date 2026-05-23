@@ -87,18 +87,6 @@ $greeting = $greetings[array_rand($greetings)];
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link active">Tasks</a>
         </nav>
-        <div class="stat-item">
-            <span class="stat-number"><?= $total ?></span>
-            <span class="stat-label">Total</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-number stat-pending"><?= $pending ?></span>
-            <span class="stat-label">Pending</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-number stat-complete"><?= $complete ?></span>
-            <span class="stat-label">Done</span>
-        </div>
         <div class="sidebar-footer">
             <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
             <a href="/logout.php" class="btn btn-danger btn-action sidebar-logout">Logout</a>
