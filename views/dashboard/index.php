@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /finalexam/index.php");
+    header("Location: /index.php");
     die();
 }
 
@@ -84,7 +84,7 @@ $greeting = $greetings[array_rand($greetings)];
         </nav>
         <div class="sidebar-footer">
             <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
-            <a href="/finalexam/logout.php" class="btn btn-danger" style="width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: block; text-align: center;">Logout</a>
+            <a href="/logout.php" class="btn btn-danger" style="width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: block; text-align: center;">Logout</a>
         </div>
     </aside>
 

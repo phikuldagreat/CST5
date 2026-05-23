@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
     );
 
     if ($result) {
-        header("Location: /finalexam/views/dashboard/index.php");
+        header("Location: /views/dashboard/index.php");
         die();
     } else {
     $errors = "Invalid username or password.";
