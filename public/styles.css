@@ -527,3 +527,97 @@ button[type="submit"]:hover {
   text-align: center;
   padding: 2rem;
 }
+
+/* =========================
+   STATS
+========================= */
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  flex: 1;
+  padding: 1rem;
+  text-align: center;
+}
+
+.stat-card-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #c8dde8;
+}
+
+.stat-card-number-pending {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f0d080;
+}
+
+.stat-card-number-complete {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4ac880;
+}
+
+.stat-card-label {
+  font-size: 0.8rem;
+  color: #4a6a7a;
+}
+
+/* =========================
+   ADD TASK CARD
+========================= */
+.add-task-card {
+  padding: 1.25rem;
+}
+
+.add-task-title {
+  text-align: left;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.add-task-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.add-task-btn {
+  text-align: right;
+}
+
+.task-description {
+  font-size: 0.78rem;
+  color: #4a6a7a;
+  margin-top: 0.2rem;
+}
+
+.description-label-hint {
+  color: #4a6a7a;
+  font-size: 0.8rem;
+}
+
+.textarea-task {
+  height: 80px;
+  resize: none;
+}
+
+/* =========================
+   SIDEBAR STAT ITEMS
+========================= */
+.stat-pending { color: #f0d080; }
+.stat-complete { color: #4ac880; }
+
+.sidebar-logout {
+  margin-top: 1rem;
+  display: block;
+  text-align: center;
+}
+
+.edit-form {
+  gap: 0.4rem;
+  align-items: center;
+}

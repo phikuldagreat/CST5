@@ -10,7 +10,7 @@
 <body>
 <nav class="navbar"> 
     <div class="container flex-between">
-        <span class="nav-brand">Welcome to TrackIT!</span>
+        <span class="nav-brand">Welcome to Trakkr.</span>
     </div>
 </nav>
 <main>

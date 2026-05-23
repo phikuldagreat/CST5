@@ -87,23 +87,21 @@ $greeting = $greetings[array_rand($greetings)];
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link active">Tasks</a>
         </nav>
-        <div class="sidebar-stats">
-            <div class="stat-item">
-                <span class="stat-number"><?= $total ?></span>
-                <span class="stat-label">Total</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" style="color: #f0d080;"><?= $pending ?></span>
-                <span class="stat-label">Pending</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" style="color: #4ac880;"><?= $complete ?></span>
-                <span class="stat-label">Done</span>
-            </div>
+        <div class="stat-item">
+            <span class="stat-number"><?= $total ?></span>
+            <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number stat-pending"><?= $pending ?></span>
+            <span class="stat-label">Pending</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number stat-complete"><?= $complete ?></span>
+            <span class="stat-label">Done</span>
         </div>
         <div class="sidebar-footer">
             <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
-            <a href="/logout.php" class="btn btn-danger" style="width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: block; text-align: center;">Logout</a>
+            <a href="/logout.php" class="btn btn-danger btn-action sidebar-logout">Logout</a>
         </div>
     </aside>
 
@@ -118,14 +116,46 @@ $greeting = $greetings[array_rand($greetings)];
             <div class="alert alert-danger"><?= $errors ?></div>
         <?php endif; ?>
 
-        <!-- toolbar -->
-        <form method="POST" class="flex" style="align-items: flex-start; gap: 0.75rem; flex-direction: column;">
-            <div class="flex" style="width: 100%; gap: 0.75rem; align-items: center;">
-                <input type="text" name="title" placeholder="New task title..." required style="flex: 1;">
-                <button type="submit" name="add" class="btn btn-primary" style="width: auto;">+ Add Task</button>
+        <!-- stats -->
+        <div class="stats-row">
+            <div class="card stat-card">
+                <div class="stat-card-number"><?= $total ?></div>
+                <div class="stat-card-label">Total</div>
             </div>
-            <textarea name="description" placeholder="Description (optional)" style="width: 100%; height: 60px; resize: none;"></textarea>
-        </form>
+            <div class="card stat-card">
+                <div class="stat-card-number-pending"><?= $pending ?></div>
+                <div class="stat-card-label">Pending</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-card-number-complete"><?= $complete ?></div>
+                <div class="stat-card-label">Done</div>
+            </div>
+        </div>
+
+        <!-- add task toggle -->
+        <?php if (isset($_GET['add'])): ?>
+        <div class="card add-task-card mb-2">
+            <h3 class="add-task-title">New Task</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" placeholder="Task title..." required>
+                </div>
+                <div class="form-group">
+                    <label>Description <span class="description-label-hint">(optional)</span></label>
+                    <textarea name="description" placeholder="Add a description..." class="textarea-task"></textarea>
+                </div>
+                <div class="add-task-actions">
+                    <a href="index.php" class="btn btn-secondary btn-action">Cancel</a>
+                    <button type="submit" name="add" class="btn btn-primary btn-action">+ Add Task</button>
+                </div>
+            </form>
+        </div>
+        <?php else: ?>
+        <div class="add-task-btn mb-2">
+            <a href="?add=1" class="btn btn-primary btn-action">+ Add Task</a>
+        </div>
+        <?php endif; ?>
 
         <!-- task table -->
         <table class="table">
@@ -146,7 +176,7 @@ $greeting = $greetings[array_rand($greetings)];
                         <td>
                             <?= htmlspecialchars($task['title']) ?>
                             <?php if (!empty($task['description'])): ?>
-                                <div style="font-size: 0.78rem; color: #4a6a7a; margin-top: 0.2rem;"><?= htmlspecialchars($task['description']) ?></div>
+                                <div class="task-description"><?= htmlspecialchars($task['description']) ?></div>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -161,19 +191,19 @@ $greeting = $greetings[array_rand($greetings)];
                             <div class="flex" style="gap: 0.5rem; align-items: center; justify-content: center;">
 
                                 <?php if (isset($_GET['edit_id']) && $_GET['edit_id'] == $task['id']): ?>
-                                    <form method="POST" class="flex" style="gap: 0.4rem; align-items: center;">
+                                    <form method="POST" class="flex edit-form">
                                         <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                                        <input type="text" name="title" value="<?= htmlspecialchars($task['title']) ?>" style="width: 180px; padding: 0.3rem 0.5rem; font-size: 0.85rem;">
-                                        <button type="submit" name="edit" class="btn btn-primary" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.8rem;">Save</button>
-                                        <a href="index.php" class="btn btn-secondary" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.8rem;">Cancel</a>
+                                        <input type="text" name="title" value="<?= htmlspecialchars($task['title']) ?>" class="edit-input">
+                                        <button type="submit" name="edit" class="btn btn-primary btn-action">Save</button>
+                                        <a href="index.php" class="btn btn-secondary btn-action">Cancel</a>
                                     </form>
                                 <?php else: ?>
                                     <?php if ($task['status'] !== 'complete'): ?>
-                                        <a href="?edit_id=<?= $task['id'] ?>" class="btn btn-secondary" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.8rem;">Edit</a>
+                                        <a href="?edit_id=<?= $task['id'] ?>" class="btn btn-secondary btn-action">Edit</a>
                                     <?php endif; ?>
                                     <form method="POST">
                                         <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                                        <button type="submit" name="delete" class="btn btn-danger" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.8rem;" 
+                                        <button type="submit" name="delete" class="btn btn-danger" class="btn btn-* btn-action" 
                                                 onclick="return confirm('Are you sure you want to delete this task?')">Delete
                                         </button>
                                     </form>
