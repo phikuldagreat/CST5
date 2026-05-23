@@ -7,7 +7,7 @@ class TaskController {
     {
         //connects to the SQL server
         $this->conn = new PDO(
-            "mysql:host=$server_name;dbname=$db_name;charset=utf8",
+            "mysql:host=$server_name;port=3306;dbname=$db_name;charset=utf8",
             $username,
             $password
         );
