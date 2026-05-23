@@ -7,8 +7,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 require_once __DIR__ . '/../../models/task.php';
-require_once __DIR__ . '/../../models/folder.php';
 require_once __DIR__ . '/../../controllers/task.php';
+require_once __DIR__ . '/../../models/folder.php';
+require_once __DIR__ . '/../../controllers/folder.php';
 require_once __DIR__ . '/../../public/database.config.php';
 
 $controller = new TaskController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
