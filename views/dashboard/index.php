@@ -132,8 +132,10 @@ $greeting = $greetings[array_rand($greetings)];
             <button type="submit" name="add_folder" class="sidebar-add-folder-btn">+ Add Folder</button>
         </form>
         <div class="sidebar-footer">
-            <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
-            <a href="/logout.php" class="btn btn-danger btn-action sidebar-logout">Logout</a>
+            <div class="sidebar-user-card">
+                <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
+                <a href="/logout.php" class="btn btn-danger sidebar-logout">Logout</a>
+            </div>
         </div>
     </aside>
 
