@@ -621,3 +621,68 @@ button[type="submit"]:hover {
   gap: 0.4rem;
   align-items: center;
 }
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 3.5rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #7eb8d4;
+  cursor: pointer;
+  width: auto;
+  padding: 0;
+  font-size: 0.8rem;
+  min-width: unset;
+}
+
+.sidebar-section-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4a6a7a;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.sidebar-folder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-folder-delete {
+  background: none;
+  border: none;
+  color: #4a6a7a;
+  cursor: pointer;
+  font-size: 0.7rem;
+  width: auto;
+  padding: 0.2rem 0.4rem;
+}
+
+.sidebar-folder-delete:hover {
+  color: #e07070;
+}
+
+.sidebar-add-folder {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  align-items: center;
+}
+
+.sidebar-add-folder input {
+  flex: 1;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+}

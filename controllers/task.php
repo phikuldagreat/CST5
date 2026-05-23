@@ -13,18 +13,22 @@ class TaskController {
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    function getAll($user_id) {
-        //collects all tasks in the database
-        //based on who's logged in
-        $stmt = $this->conn->prepare("SELECT * FROM tasks WHERE user_id = ? ORDER BY created_at DESC");
-        $stmt->execute([$user_id]);
+    function getAll($user_id, $folder_id = null) {
+        if ($folder_id) {
+            $stmt = $this->conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND folder_id = ? ORDER BY created_at DESC");
+            $stmt->execute([$user_id, $folder_id]);
+        } else {
+            $stmt = $this->conn->prepare("SELECT * FROM tasks WHERE user_id = ? ORDER BY created_at DESC");
+            $stmt->execute([$user_id]);
+        }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function add($user_id, $title, $description = "") {
-        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, title, description, status) VALUES (?, ?, ?, 'pending')");
-        return $stmt->execute([$user_id, $title, $description]);
+    function add($user_id, $title, $description = "", $folder_id = null) {
+        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, title, description, folder_id, status) VALUES (?, ?, ?, ?, 'pending')");
+        return $stmt->execute([$user_id, $title, $description, $folder_id]);
     }
+
     function edit($id, $user_id, $title, $description = "") {
         $stmt = $this->conn->prepare("UPDATE tasks SET title = ?, description = ? WHERE id = ? AND user_id = ?");
         return $stmt->execute([$title, $description, $id, $user_id]);

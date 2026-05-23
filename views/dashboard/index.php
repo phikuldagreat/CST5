@@ -7,27 +7,46 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 require_once __DIR__ . '/../../models/task.php';
+require_once __DIR__ . '/../../models/folder.php';
 require_once __DIR__ . '/../../controllers/task.php';
 require_once __DIR__ . '/../../public/database.config.php';
 
 $controller = new TaskController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
+$folderController = new FolderController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
+
 $user_id = $_SESSION['user_id'];
 $message = "";
 $errors = "";
 
-//add function
+// add folder function
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_folder"])) {
+    $folder_name = $_POST["folder_name"] ?? "";
+    if (!empty($folder_name)) {
+        $folderController->add($user_id, $folder_name);
+    }
+}
+
+// delete folder function
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete_folder"])) {
+    $folderController->delete($_POST["folder_id"], $user_id);
+    header("Location: index.php");
+    die();
+}
+
+//add task function
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
     $title = $_POST["title"] ?? "";
     $description = $_POST["description"] ?? "";
+    $folder_id = $_POST["folder_id"] ?? null;
     if (!empty($title)) {
-        $controller->add($user_id, $title, $description);
+        $controller->add($user_id, $title, $description, $folder_id ?: null);
         $message = "Task added.";
     } else {
         $errors = "Title cannot be empty.";
     }
 }
 
-//edit function
+//edit task function
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit"])) {
     $id = $_POST["task_id"];
     $title = $_POST["title"];
@@ -55,7 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["complete"])) {
     $message = "Task marked as complete.";
 }
 
-$tasks = $controller->getAll($user_id);
+$folders = $folderController->getAll($user_id);
+$active_folder = $_GET['folder'] ?? null;
+
+$tasks = $controller->getAll($user_id, $active_folder);
 
 $total = count($tasks);
 $complete = count(array_filter($tasks, fn($t) => $t['status'] === 'complete'));
@@ -83,10 +105,27 @@ $greeting = $greetings[array_rand($greetings)];
 
     <!-- sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-brand">TrackIT!</div>
+        <div class="sidebar-brand">Trakkr.</div>
+        <div class="sidebar-section-label">Folders</div>
         <nav class="sidebar-nav">
-            <a href="index.php" class="sidebar-link active">Tasks</a>
+            <a href="index.php" class="sidebar-link <?= !$active_folder ? 'active' : '' ?>">All Tasks</a>
+            <?php foreach ($folders as $folder): ?>
+            <div class="sidebar-folder-item <?= $active_folder == $folder['id'] ? 'active' : '' ?>">
+                <a href="?folder=<?= $folder['id'] ?>" class="sidebar-link <?= $active_folder == $folder['id'] ? 'active' : '' ?>" style="flex: 1;">
+                    📁 <?= htmlspecialchars($folder['name']) ?>
+                </a>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="folder_id" value="<?= $folder['id'] ?>">
+                    <button type="submit" name="delete_folder" class="sidebar-folder-delete" onclick="return confirm('Delete this folder?')">✕</button>
+                </form>
+            </div>
+            <?php endforeach; ?>
         </nav>
+
+        <form method="POST" class="sidebar-add-folder">
+            <input type="text" name="folder_name" placeholder="New folder..." required>
+            <button type="submit" name="add_folder" class="btn btn-primary btn-action">+</button>
+        </form>
         <div class="sidebar-footer">
             <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
             <a href="/logout.php" class="btn btn-danger btn-action sidebar-logout">Logout</a>
@@ -132,6 +171,17 @@ $greeting = $greetings[array_rand($greetings)];
                 <div class="form-group">
                     <label>Description <span class="description-label-hint">(optional)</span></label>
                     <textarea name="description" placeholder="Add a description..." class="textarea-task"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Folder <span class="description-label-hint">(optional)</span></label>
+                    <select name="folder_id">
+                        <option value="">No folder</option>
+                        <?php foreach ($folders as $folder): ?>
+                            <option value="<?= $folder['id'] ?>" <?= $active_folder == $folder['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($folder['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="add-task-actions">
                     <a href="index.php" class="btn btn-secondary btn-action">Cancel</a>
