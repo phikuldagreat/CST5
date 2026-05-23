@@ -12,11 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
     $username = $_POST["username"] ?? "";
     $password = $_POST["password"] ?? "";
 
-    if (strlen($password) < 8) {
-        $errors = "Password must be at least 8 characters.";
-    } else {
-}
-
     $credentials = new Account($username, $password);
     $controller = new AccountController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 

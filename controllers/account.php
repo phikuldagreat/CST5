@@ -25,6 +25,10 @@ class AccountController {
             return false; // username taken
         }
 
+        if (strlen($password) < 8) {
+        $errors = "Password must be at least 8 characters.";
+    } else
+
         // hash the password before storing
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
