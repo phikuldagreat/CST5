@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
                 <button type="submit" name="register">Register</button>
 
                 <p class="mt-2" style="text-align:center; font-size: 0.85rem;">
-                    Already have an account? <a href="/finalexam/index.php">Login</a>
+                    Already have an account? <a href="/index.php">Login</a>
                 </p>
             </form>
 
