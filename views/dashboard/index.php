@@ -62,7 +62,7 @@ $greetings = [
     "Time to work",
     "Hello there",
     "Work, work",
-    "Let's get workin'"
+    "Let's get working"
 ];
 
 $greeting = $greetings[array_rand($greetings)];
