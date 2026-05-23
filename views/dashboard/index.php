@@ -18,8 +18,9 @@ $errors = "";
 //add function
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
     $title = $_POST["title"] ?? "";
+    $description = $_POST["description"] ?? "";
     if (!empty($title)) {
-        $controller->add($user_id, $title);
+        $controller->add($user_id, $title, $description);
         $message = "Task added.";
     } else {
         $errors = "Title cannot be empty.";
@@ -56,6 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["complete"])) {
 
 $tasks = $controller->getAll($user_id);
 
+$total = count($tasks);
+$complete = count(array_filter($tasks, fn($t) => $t['status'] === 'complete'));
+$pending = $total - $complete;
+
 $greetings = [
     "Welcome",
     "Good day",
@@ -82,6 +87,20 @@ $greeting = $greetings[array_rand($greetings)];
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link active">Tasks</a>
         </nav>
+        <div class="sidebar-stats">
+            <div class="stat-item">
+                <span class="stat-number"><?= $total ?></span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" style="color: #f0d080;"><?= $pending ?></span>
+                <span class="stat-label">Pending</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" style="color: #4ac880;"><?= $complete ?></span>
+                <span class="stat-label">Done</span>
+            </div>
+        </div>
         <div class="sidebar-footer">
             <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
             <a href="/logout.php" class="btn btn-danger" style="width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin-top: 1rem; display: block; text-align: center;">Logout</a>
@@ -100,12 +119,13 @@ $greeting = $greetings[array_rand($greetings)];
         <?php endif; ?>
 
         <!-- toolbar -->
-        <div class="card mb-2" style="padding: 0.75rem 1rem;">
-            <form method="POST" class="flex" style="align-items: center; gap: 0.75rem;">
+        <form method="POST" class="flex" style="align-items: flex-start; gap: 0.75rem; flex-direction: column;">
+            <div class="flex" style="width: 100%; gap: 0.75rem; align-items: center;">
                 <input type="text" name="title" placeholder="New task title..." required style="flex: 1;">
                 <button type="submit" name="add" class="btn btn-primary" style="width: auto;">+ Add Task</button>
-            </form>
-        </div>
+            </div>
+            <textarea name="description" placeholder="Description (optional)" style="width: 100%; height: 60px; resize: none;"></textarea>
+        </form>
 
         <!-- task table -->
         <table class="table">
@@ -123,7 +143,12 @@ $greeting = $greetings[array_rand($greetings)];
                 <?php else: ?>
                     <?php foreach ($tasks as $task): ?>
                     <tr class="<?= $task['status'] === 'complete' ? 'row-complete' : 'row-pending' ?>">
-                        <td><?= htmlspecialchars($task['title']) ?></td>
+                        <td>
+                            <?= htmlspecialchars($task['title']) ?>
+                            <?php if (!empty($task['description'])): ?>
+                                <div style="font-size: 0.78rem; color: #4a6a7a; margin-top: 0.2rem;"><?= htmlspecialchars($task['description']) ?></div>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <?php if ($task['status'] === 'complete'): ?>
                                 <span class="badge-complete">✓ Complete</span>
@@ -155,7 +180,9 @@ $greeting = $greetings[array_rand($greetings)];
                                     <?php if ($task['status'] !== 'complete'): ?>
                                     <form method="POST">
                                         <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                                        <button type="submit" name="complete" class="btn btn-success" style="width: auto; padding: 0.3rem 0.6rem; font-size: 0.8rem;">Done</button>
+                                        <button type="submit" name="complete" class="btn btn-success btn-action" 
+                                                onclick="return confirm('Mark this task as complete? This cannot be undone.')">Done
+                                        </button>
                                     </form>
                                     <?php endif; ?>
                                 <?php endif; ?>

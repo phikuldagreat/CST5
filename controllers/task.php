@@ -21,16 +21,13 @@ class TaskController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function add($user_id, $title) {
-        //add new tasks
-        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, title, status) VALUES (?, ?, 'pending')");
-        return $stmt->execute([$user_id, $title]);
+    function add($user_id, $title, $description = "") {
+        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, title, description, status) VALUES (?, ?, ?, 'pending')");
+        return $stmt->execute([$user_id, $title, $description]);
     }
-
-    function edit($id, $user_id, $title) {
-        //change task details
-        $stmt = $this->conn->prepare("UPDATE tasks SET title = ? WHERE id = ? AND user_id = ?");
-        return $stmt->execute([$title, $id, $user_id]);
+    function edit($id, $user_id, $title, $description = "") {
+        $stmt = $this->conn->prepare("UPDATE tasks SET title = ?, description = ? WHERE id = ? AND user_id = ?");
+        return $stmt->execute([$title, $description, $id, $user_id]);
     }
 
     function delete($id, $user_id) {

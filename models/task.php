@@ -5,6 +5,7 @@ class Task {
     public $user_id = "";
     public $title = "";
     public $status = "pending";
+    public $description = "";
     public $created_at = "";
 
     function __construct($user_id, $title, $status = "pending", $id = "", $created_at = "")
