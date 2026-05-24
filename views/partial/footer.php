@@ -2,7 +2,7 @@
 <footer class="site-footer">
     <div class="container">
         <p>
-            © 2026 Trakkr is a project created by Steven Deligero, a 2nd year Computer Science student.
+            © 2026 TrakkR is a project created by Steven Deligero, a 2nd year Computer Science student.
         </p>
     </div>
 </footer>

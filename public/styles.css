@@ -139,8 +139,8 @@ a:hover {
    NAVBAR
 ========================= */
 .navbar {
-  background: #323841;
-  border-bottom: 1px solid #77726E;
+  background: #1a1e24;
+  border-bottom: 1px solid #323841;
   padding: 1rem 0;
   color: #F6F2EE;
 }
@@ -165,9 +165,9 @@ a:hover {
   text-align: center;
   padding: 1.5rem;
   font-size: 0.8rem;
-  background: #323841;
-  border-top: 1px solid #77726E;
-  color: #B3B9C1;
+  background: #1a1e24;
+  border-top: 1px solid #323841;
+  color: #77726E;
 }
 
 /* =========================
@@ -224,7 +224,7 @@ button[type="submit"]:hover {
 }
 
 button[type="submit"].sidebar-folder-delete {
-  background: #323841;
+  background: #1a1e24;
   color: transparent;
   border: none;
   border-radius: 4px;
@@ -233,9 +233,9 @@ button[type="submit"].sidebar-folder-delete {
 }
 
 button[type="submit"].sidebar-add-folder-btn {
-  background: #323841;
-  color: #CACBCD;
-  border: 1px solid #77726E;
+  background: #1a1e24;
+  color: #9BA8AB;
+  border: 1px solid #323841;
   border-radius: 6px;
   width: 100%;
   padding: 0.4rem 0;
@@ -333,7 +333,7 @@ input:focus, textarea:focus, select:focus {
 .table th {
   vertical-align: middle;
   font-size: 0.9rem;
-  background: #323841;
+  background: #1a1e24;
   color: #CACBCD;
   padding: 0.75rem 1rem;
 }
@@ -343,8 +343,8 @@ input:focus, textarea:focus, select:focus {
   padding: 0.75rem 1rem;
 }
 
-.table tr:nth-child(even) { background: #CACBCD; }
-.table tr:hover { background: #B3B9C1; }
+.table tr:nth-child(even) { background: #e8e6e3; }
+.table tr:hover { background: #CACBCD; }
 
 .table th:nth-child(1) { width: 30%; }
 .table th:nth-child(2) { width: 15%; }
@@ -459,7 +459,6 @@ input:focus, textarea:focus, select:focus {
 
 .auth-branding h2 {
   font-size: 2.5rem;
-  color: #F6F2EE;
   text-align: left;
   margin-bottom: 1rem;
 }
@@ -505,8 +504,8 @@ input:focus, textarea:focus, select:focus {
 ========================= */
 .sidebar {
   width: 220px;
-  background: #323841;
-  border-right: 1px solid #77726E;
+  background: #1a1e24;
+  border-right: 1px solid #323841;
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
@@ -519,9 +518,10 @@ input:focus, textarea:focus, select:focus {
 .sidebar-brand {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #F6F2EE;
   margin-bottom: 2rem;
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
 }
 
 .sidebar-nav {
@@ -540,7 +540,7 @@ input:focus, textarea:focus, select:focus {
 
 .sidebar-link:hover,
 .sidebar-link.active {
-  background: #77726E;
+  background: #323841;
   color: #F6F2EE;
   text-decoration: none;
 }
@@ -561,7 +561,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar-folder-delete {
-  background: #323841;
+  background: #1a1e24;
   border: none;
   color: transparent;
   cursor: pointer;
@@ -590,20 +590,20 @@ input:focus, textarea:focus, select:focus {
 .sidebar-add-folder input {
   padding: 0.3rem 0.5rem;
   font-size: 0.8rem;
-  background: #323841;
-  border: 1px dashed #77726E;
+  background: #1a1e24;
+  border: 1px dashed #323841;
   color: #F6F2EE;
 }
 
 .sidebar-add-folder input:focus {
-  border-color: #CACBCD;
+  border-color: #77726E;
   outline: none;
 }
 
 .sidebar-add-folder-btn {
-  background: #323841;
-  border: 1px solid #77726E;
-  color: #B3B9C1;
+  background: #1a1e24;
+  border: 1px solid #323841;
+  color: #9BA8AB;
   font-size: 0.8rem;
   cursor: pointer;
   text-align: center;
@@ -623,7 +623,7 @@ input:focus, textarea:focus, select:focus {
 
 .sidebar-user {
   font-size: 0.8rem;
-  color: #B3B9C1;
+  color: #9BA8AB;
 }
 
 .sidebar-user strong {
@@ -631,7 +631,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar-user-card {
-  background: #253040;
+  background: #323841;
   border: 1px solid #4a5260;
   border-radius: 8px;
   padding: 1rem;
@@ -644,6 +644,30 @@ input:focus, textarea:focus, select:focus {
   margin-top: 1rem;
   display: block;
   text-align: center;
+}
+
+/* =========================
+   BRAND COLORS
+========================= */
+.brand-T {
+  color: #1a1e24;
+}
+
+.brand-rakk {
+  color: #9BA8AB;
+}
+
+.brand-R {
+  color: #1a1e24;
+}
+
+.sidebar-brand .brand-T,
+.sidebar-brand .brand-R {
+  color: #F6F2EE;
+}
+
+.sidebar-brand .brand-rakk {
+  color: #77726E;
 }
 
 /* =========================
@@ -662,7 +686,7 @@ input:focus, textarea:focus, select:focus {
   width: 40px;
   height: 40px;
   object-fit: contain;
-  filter: invert(0);
+  filter: invert(1);
 }
 
 .auth-brand {
@@ -676,5 +700,4 @@ input:focus, textarea:focus, select:focus {
   text-align: left;
   margin: 0;
   font-size: 1.8rem;
-  color: #F6F2EE;
 }

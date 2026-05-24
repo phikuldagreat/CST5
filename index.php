@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
     <!-- left side of page -->
     <div class="auth-left">
         <div class="auth-branding">
-            <div class="auth-brand">
-                <img src="/public/assets/Trakkr_Logo.png" alt="Trakkr Logo" class="auth-logo">
-                <h2>Trakkr</h2>
+            <div class="sidebar-brand">
+                <img src="/public/assets/TrakkR_Logo.png" alt="TrakkR Logo" class="sidebar-logo">
+                <span class="brand-T">T</span><span class="brand-rakk">rakk</span><span class="brand-R">R</span>
             </div>
             <p>Stay on top of your tasks.<br>Simple. Clean. Focused.</p>
         </div>
