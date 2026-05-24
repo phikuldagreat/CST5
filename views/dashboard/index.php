@@ -107,7 +107,7 @@ $greeting = $greetings[array_rand($greetings)];
     <!-- sidebar -->
     <aside class="sidebar">
         <div class="sidebar-brand">
-            <img src="/public/assets/Trakkr_Logo.png" alt="Trakkr Logo" class="sidebar-logo">
+            <img src="/public/assets/Trakkr_Logo.png" alt="Trakkr Logo" class="sidebar-logo" onerror="this.style.display='none'">
             Trakkr.
         </div>
 
