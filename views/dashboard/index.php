@@ -224,8 +224,8 @@ $greeting = $greetings[array_rand($greetings)];
                 <tr>
                     <th>Task</th>
                     <th>Status</th>
-                    <th>Date Added</th>
                     <th>Due Date</th>
+                    <th>Date Added</th>
                     <th style="text-align: center;">Actions</th>
                 </tr>
             </thead>
