@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
     <!-- left side of page -->
     <div class="auth-left">
         <div class="auth-branding">
-            <h2>Trakkr.</h2>
+            <h2>Trakkr</h2>
             <p>Stay on top of your tasks.<br>Simple. Clean. Focused.</p>
         </div>
     </div>

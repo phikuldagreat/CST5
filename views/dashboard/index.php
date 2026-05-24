@@ -106,7 +106,7 @@ $greeting = $greetings[array_rand($greetings)];
 
     <!-- sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-brand">Trakkr.</div>
+        <div class="sidebar-brand">Trakkr</div>
 
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link <?= !$active_folder ? 'active' : '' ?>">All Tasks</a>

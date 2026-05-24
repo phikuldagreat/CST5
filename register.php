@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
 
 <!-- PHP code -->
 <!-- register UI is also separated into two halves -->
-<?php $page_title = "Trakkr. — Register"; ?>
+<?php $page_title = "Trakkr | Register"; ?>
 <?php require 'views/partial/header.php'; ?>
 
 <div class="auth-split">
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
     <!-- left side of page -->
     <div class="auth-left">
         <div class="auth-branding">
-            <h2>Trakkr.</h2>
+            <h2>Trakkr</h2>
             <p>Stay on top of your tasks.<br>Simple. Clean. Focused.</p>
         </div>
     </div>
