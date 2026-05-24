@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+$logoPath = __DIR__ . '/../../public/assets/TrakkR_logo.png';
+echo file_exists($logoPath) ? 'FILE EXISTS' : 'FILE NOT FOUND';
+die();
+
 require_once __DIR__ . '/models/account.php';
 require_once __DIR__ . '/controllers/account.php';
 require_once __DIR__ . '/public/database.config.php';

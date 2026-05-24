@@ -10,7 +10,6 @@
 <body>
 <nav class="navbar"> 
     <div class="container flex-between">
-        <img src="public/assets/TrakkR_logo.png" alt="TrakkR Logo" class="sidebar-logo">
         <span class="nav-brand">Welcome to TrakkR</span>
     </div>
 </nav>
