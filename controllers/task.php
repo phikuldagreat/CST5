@@ -24,14 +24,14 @@ class TaskController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function add($user_id, $title, $description = "", $folder_id = null) {
-        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, title, description, folder_id, status) VALUES (?, ?, ?, ?, 'pending')");
-        return $stmt->execute([$user_id, $title, $description, $folder_id]);
+    function add($user_id, $title, $description = "", $folder_id = null, $due_date = null) {
+        $stmt = $this->conn->prepare("INSERT INTO tasks (user_id, title, description, folder_id, due_date, status) VALUES (?, ?, ?, ?, ?, 'pending')");
+        return $stmt->execute([$user_id, $title, $description, $folder_id, $due_date]);
     }
 
-    function edit($id, $user_id, $title, $description = "") {
-        $stmt = $this->conn->prepare("UPDATE tasks SET title = ?, description = ? WHERE id = ? AND user_id = ?");
-        return $stmt->execute([$title, $description, $id, $user_id]);
+    function edit($id, $user_id, $title, $description = "", $due_date = null, $folder_id = null) {
+        $stmt = $this->conn->prepare("UPDATE tasks SET title = ?, description = ?, due_date = ?, folder_id = ? WHERE id = ? AND user_id = ?");
+        return $stmt->execute([$title, $description, $due_date, $folder_id, $id, $user_id]);
     }
 
     function delete($id, $user_id) {

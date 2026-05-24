@@ -39,12 +39,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
     $title = $_POST["title"] ?? "";
     $description = $_POST["description"] ?? "";
     $folder_id = $_POST["folder_id"] ?? null;
+    $due_date = $_POST["due_date"] ?? null;
     if (!empty($title)) {
-        $controller->add($user_id, $title, $description, $folder_id ?: null);
-        $message = "Task added.";
+        $controller->add($user_id, $title, $description, $folder_id ?: null, $due_date ?: null);
+        header("Location: index.php?added=1");
+        die();
     } else {
         $errors = "Title cannot be empty.";
     }
+}
+
+if (isset($_GET['added'])) {
+    $message = "Task added.";
 }
 
 //edit task function
@@ -52,7 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit"])) {
     $id = $_POST["task_id"];
     $title = $_POST["title"];
     $description = $_POST["description"] ?? "";
-    $controller->edit($id, $user_id, $title, $description);
+    $due_date = $_POST["due_date"] ?? null;
+    $folder_id = $_POST["folder_id"] ?? null;
+    $controller->edit($id, $user_id, $title, $description, $due_date ?: null, $folder_id ?: null);
     header("Location: index.php?updated=1");
     die();
 }
@@ -194,6 +202,10 @@ $greeting = $greetings[array_rand($greetings)];
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Due Date <span class="description-label-hint">(optional)</span></label>
+                    <input type="date" name="due_date">
+                </div>
                 <div class="add-task-actions">
                     <a href="index.php" class="btn btn-secondary btn-action">Cancel</a>
                     <button type="submit" name="add" class="btn btn-primary btn-action">+ Add Task</button>
@@ -213,6 +225,7 @@ $greeting = $greetings[array_rand($greetings)];
                     <th>Task</th>
                     <th>Status</th>
                     <th>Date Added</th>
+                    <th>Due Date</th>
                     <th style="text-align: center;">Actions</th>
                 </tr>
             </thead>
@@ -235,6 +248,9 @@ $greeting = $greetings[array_rand($greetings)];
                                 <span class="badge-pending">● Pending</span>
                             <?php endif; ?>
                         </td>
+                        <td class="td-date">
+                            <?= !empty($task['due_date']) ? date('M d, Y', strtotime($task['due_date'])) : '—' ?>
+                        </td>
                             <td class="td-date"><?= date('M d, Y', strtotime($task['created_at'])) ?></td>
                             <td class="td-actions">
                             <div class="flex" style="gap: 0.5rem; align-items: center; justify-content: center;">
@@ -244,6 +260,15 @@ $greeting = $greetings[array_rand($greetings)];
                                             <form method="POST" class="edit-inline-form">
                                                 <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
                                                 <input type="text" name="title" value="<?= htmlspecialchars($task['title']) ?>" class="edit-input">
+                                                <input type="date" name="due_date" value="<?= htmlspecialchars($task['due_date'] ?? '') ?>" class="edit-input">
+                                                <select name="folder_id" class="edit-input">
+                                                    <option value="">No folder</option>
+                                                    <?php foreach ($folders as $folder): ?>
+                                                        <option value="<?= $folder['id'] ?>" <?= $task['folder_id'] == $folder['id'] ? 'selected' : '' ?>>
+                                                            <?= htmlspecialchars($folder['name']) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>                                                
                                                 <textarea name="description" class="edit-inline-textarea"><?= htmlspecialchars($task['description'] ?? '') ?></textarea>
                                                 <div class="edit-inline-actions">
                                                     <button type="submit" name="edit" class="btn btn-primary btn-action">Save</button>

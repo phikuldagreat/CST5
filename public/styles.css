@@ -346,10 +346,11 @@ input:focus, textarea:focus, select:focus {
 .table tr:nth-child(even) { background: #e8e6e3; }
 .table tr:hover { background: #CACBCD; }
 
-.table th:nth-child(1) { width: 30%; }
-.table th:nth-child(2) { width: 15%; }
-.table th:nth-child(3) { width: 15%; text-align: center; }
-.table th:nth-child(4) { width: 40%; text-align: center; }
+.table th:nth-child(1) { width: 28%; }
+.table th:nth-child(2) { width: 12%; }
+.table th:nth-child(3) { width: 12%; text-align: center; }
+.table th:nth-child(4) { width: 12%; text-align: center; }
+.table th:nth-child(5) { width: 36%; text-align: center; }
 
 .row-pending { border-left: 3px solid #77726E; }
 .row-complete { border-left: 3px solid #4a9a6a; }
