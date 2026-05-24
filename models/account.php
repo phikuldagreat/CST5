@@ -1,7 +1,7 @@
 <?php
 // This mimics the table "accounts" in your database
 class Account {
-    // Properties
+    // PROPERTIES
     public $id = "";
     public $username = "";
     public $password = "";

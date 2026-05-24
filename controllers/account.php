@@ -2,13 +2,14 @@
 // This will contain all the processes/functions
 // that affect the Account model
 class AccountController {
-    // Properties
+    // PROPERTIES
     private $conn;
 
     function __construct($server_name, $username, $password, $db_name, $port = 3306)
     {
+        // CONNECTS TO RAILWAY DATABASE
         $this->conn = new PDO(
-            "mysql:host=$server_name;port=$port;dbname=$db_name;charset=utf8",
+            "mysql:host=$server_name;port=$port;dbname=$db_name;charset=utf8", 
             $username,
             $password
         );
@@ -16,27 +17,27 @@ class AccountController {
     }
 
     function register($username, $password) {
-        // account creation logic
-        // check if username already exists
+        // ACCOUNT CREATION LOGIC
         $check = $this->conn->prepare("SELECT id FROM accounts WHERE username = ?");
         $check->execute([$username]);
 
+        // CHECKS IF USERNAME ALREADY EXISTS
         if ($check->rowCount() > 0) {
             return ['success' => false, 'message' => 'Username already taken.'];
         }
 
-        // Validate password length
+        // VALIDATE PASSWORD LENGTH
         if (strlen($password) < 8) {
             return ['success' => false, 'message' => 'Password must be at least 8 characters.'];
         }
         
-        // Hash the password before storing
+        // HASHES THE PASSWORD BEFORE STORING IN DATABASE
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->conn->prepare("INSERT INTO accounts (username, password) VALUES (?, ?)");
         $success = $stmt->execute([$username, $hashed]);
 
-        // Return a proper success/failure response
+        // RETURNS A MESSAGE IF ACCOUNT IS SUCCESSFULLY CREATED OR NOT
         if ($success) {
             return ['success' => true, 'message' => 'Account created successfully.'];
         } else {
@@ -45,31 +46,32 @@ class AccountController {
     }
     
     function login($username, $password) {
-        // account reading logic
+        // ACCOUNT READING LOGIC
         $stmt = $this->conn->prepare("SELECT id, username, password FROM accounts WHERE username = ?");
         $stmt->execute([$username]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$row) {
-            return false; // username not found
+            // USERNAME NOT FOUND
+            return false; 
         }
 
         if (!password_verify($password, $row['password'])) {
-            return false; // if password is wrong
+            // VERIFIES PASSWORD
+            return false; 
         }
 
-        // store in session
+        // STORE IN SESSION
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
-
         return true;
     }
 
     function update($id, $username, $password) {
-        // account updating logic
+        // ACCOUNT UPDATING LOGIC (NOT USED)
     }
 
     function delete($id, $username, $password) {
-        // account deletion logic
+        // ACCOUNT DELETION LOGIC (NOT USED)
     }
 }

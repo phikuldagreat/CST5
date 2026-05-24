@@ -1,5 +1,5 @@
 <?php
-//Basically destroys the session and takes you back to the login page :>>
+// BASICALLY DESTROYS THE SESSION AND TAKES YOU BACK TO THE LOGIN PAGE :>
 session_start();
 session_destroy();
 header("Location: /index.php");

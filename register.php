@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// LOAD FOLLOWING CLASSES
 require_once __DIR__ . '/models/account.php';
 require_once __DIR__ . '/controllers/account.php';
 require_once __DIR__ . '/public/database.config.php';
@@ -8,20 +9,25 @@ require_once __DIR__ . '/public/database.config.php';
 $message = "";
 $errors = "";
 
+// HANDLES THE REGISTER PROCESS
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
+    // SAFELY RETRIEVES THE username AND password FROM THE SUBMITTED FORM DATA
     $username = $_POST["username"] ?? "";
     $password = $_POST["password"] ?? "";
 
+    // DATA OBJECT FOR LOGIN DETAILS AND CONTROLLER FOR AUTH LOGIC
     $credentials = new Account($username, $password);
     $controller = new AccountController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 
-    // get result array
+    // CHECKS IF USERNAME ALREADY EXISTS,
+    // HASHES PASSWORD,
+    // AND INSERTS THE USER INTO THE DATABASE
     $result = $controller->register(
         $credentials->username,
         $credentials->password
     );
 
-    // checks if result is an array
+    // IF REGISTRATION IS EITHER SUCCESS OR FAIL
     if (is_array($result) && $result['success']) {
         $message = $result['message'];
     } else {

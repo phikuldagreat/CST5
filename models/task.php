@@ -1,6 +1,7 @@
 <?php
 //Mimics the table "tasks" in the database
 class Task {
+    //PROPERTIES
     public $id = "";
     public $user_id = "";
     public $title = "";

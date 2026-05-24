@@ -1,40 +1,29 @@
 <?php
 session_start();
 
+// SESSION GUARD, SO ONLY LOGGED IN USERS CAN ACCESS THE DASHBOARD
 if (!isset($_SESSION['user_id'])) {
     header("Location: /index.php");
     die();
 }
 
+// LOADS THE FOLLOWING CLASSES
 require_once __DIR__ . '/../../models/task.php';
 require_once __DIR__ . '/../../controllers/task.php';
 require_once __DIR__ . '/../../models/folder.php';
 require_once __DIR__ . '/../../controllers/folder.php';
 require_once __DIR__ . '/../../public/database.config.php';
 
+// INSTANTIATE CONTROLLERS FOR MANAGING TASKS AND FOLDERS RESPECTIVELY
 $controller = new TaskController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 $folderController = new FolderController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 
 $user_id = $_SESSION['user_id'];
+
 $message = "";
 $errors = "";
 
-// add folder function
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_folder"])) {
-    $folder_name = $_POST["folder_name"] ?? "";
-    if (!empty($folder_name)) {
-        $folderController->add($user_id, $folder_name);
-    }
-}
-
-// delete folder function
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete_folder"])) {
-    $folderController->delete($_POST["folder_id"], $user_id);
-    header("Location: index.php");
-    die();
-}
-
-//add task function
+// ADD TASK FUNCTION
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
     $title = $_POST["title"] ?? "";
     $description = $_POST["description"] ?? "";
@@ -53,7 +42,7 @@ if (isset($_GET['added'])) {
     $message = "Task added.";
 }
 
-//edit task function
+// EDIT TASK FUNCTION
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit"])) {
     $id = $_POST["task_id"];
     $title = $_POST["title"];
@@ -65,34 +54,52 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit"])) {
     die();
 }
 
-//shows message after updating a task
+
 if (isset($_GET['updated'])) {
+    // SHOW MESSAGE AFTER TASK IS UPDATED
     $message = "Task updated.";
 }
 
-//delete function
+// DELETE TASK FUNCTION
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete"])) {
     $id = $_POST["task_id"];
     $controller->delete($id, $user_id);
     $message = "Task deleted.";
 }
 
-//mark complete function
+// MARK TASK AS COMPLETE FUNCTION
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["complete"])) {
     $id = $_POST["task_id"];
     $controller->markComplete($id, $user_id);
     $message = "Task marked as complete.";
 }
 
+// ADD FOLDER FUNCTION
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_folder"])) {
+    $folder_name = $_POST["folder_name"] ?? "";
+    if (!empty($folder_name)) {
+        $folderController->add($user_id, $folder_name);
+    }
+}
+
+// DELETE FOLDER FUNCTION
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete_folder"])) {
+    $folderController->delete($_POST["folder_id"], $user_id);
+    header("Location: index.php");
+    die();
+}
+
+// RETRIEVES ALL FOLDERS BELONGING TO THE SPECIFIC USER
 $folders = $folderController->getAll($user_id);
 $active_folder = $_GET['folder'] ?? null;
-
 $tasks = $controller->getAll($user_id, $active_folder);
 
+// TOTALS THE NUMBER OF TASKS, COMPLETE TASKS, AND PENDING TASKS
 $total = count($tasks);
 $complete = count(array_filter($tasks, fn($t) => $t['status'] === 'complete'));
 $pending = $total - $complete;
 
+// RANDOM GREETING EVERY NEW SESSION
 $greetings = [
     "Welcome",
     "Good day",
@@ -115,7 +122,7 @@ $greeting = $greetings[array_rand($greetings)];
 
 <div class="dashboard-layout">
 
-    <!-- sidebar -->
+    <!-- SIDEBAR CONTENT -->
     <aside class="sidebar">
         <div class="sidebar-brand">
             <img src="../../public/assets/trakkr_logo.png" alt="TrakkR Logo" class="sidebar-logo">
@@ -151,7 +158,7 @@ $greeting = $greetings[array_rand($greetings)];
         </div>
     </aside>
 
-    <!-- main content -->
+    <!-- MAIN CONTENT -->
     <main class="dashboard-main">
 
         <?php if (!empty($message)): ?>
@@ -162,7 +169,7 @@ $greeting = $greetings[array_rand($greetings)];
             <div class="alert alert-danger"><?= $errors ?></div>
         <?php endif; ?>
 
-        <!-- stats -->
+        <!-- STATISTICS -->
         <div class="stats-row">
             <div class="card stat-card">
                 <div class="stat-card-number"><?= $total ?></div>
@@ -178,7 +185,8 @@ $greeting = $greetings[array_rand($greetings)];
             </div>
         </div>
 
-        <!-- add task toggle -->
+        <!-- ADD TASK TOGGLE -->
+        <!-- SHOWS UP AFTER CLICKING (+ Add Task) -->
         <?php if (isset($_GET['add'])): ?>
         <div class="card add-task-card mb-2">
             <h3 class="add-task-title">New Task</h3>
@@ -218,10 +226,11 @@ $greeting = $greetings[array_rand($greetings)];
         </div>
         <?php endif; ?>
 
-        <!-- task table -->
+        <!-- TASK TABLE -->
         <table class="table">
             <thead>
                 <tr>
+                    <!-- TABLE FIRST ROW VALUES -->
                     <th>Task</th>
                     <th>Status</th>
                     <th>Due Date</th>
@@ -242,6 +251,7 @@ $greeting = $greetings[array_rand($greetings)];
                             <?php endif; ?>
                         </td>
                         <td>
+                            <!-- TASK STATUS -->
                             <?php if ($task['status'] === 'complete'): ?>
                                 <span class="badge-complete">✓ Complete</span>
                             <?php else: ?>

@@ -1,24 +1,31 @@
 <?php
 session_start();
 
+// LOAD FOLLOWING CLASSES
 require_once __DIR__ . '/models/account.php';
 require_once __DIR__ . '/controllers/account.php';
 require_once __DIR__ . '/public/database.config.php';
 
 $error = "";
 
+// HANDLES THE LOGIN PROCESS
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
+    // SAFELY RETRIEVES THE username AND password FROM THE SUBMITTED FORM DATA
     $username = $_POST["username"] ?? "";
     $password = $_POST["password"] ?? "";
 
+    // DATA OBJECT FOR LOGIN DETAILS AND CONTROLLER FOR AUTH LOGIC
     $credentials = new Account($username, $password);
     $controller = new AccountController($SERVER_NAME, $USERNAME, $PASSWORD, $DB_NAME, $DB_PORT);
 
+    // VERIFIES THE CREDENTIALS, IF IT EXISTS
     $result = $controller->login(
         $credentials->username,
         $credentials->password
     );
 
+    // CHECKS IF LOGIN IS VALID, REDIRECTS TO THE DASHBOARD
+    // ELSE, IT SENDS AN INVALID USERNAME OF PASSWORD MESSAGE
     if ($result) {
         header("Location: /views/dashboard/index.php");
         die();
@@ -34,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
 
 <div class="auth-split">
 
-    <!-- left side of page -->
+    <!-- LEFT SIDE OF LOGIN PAGE: THE TEXT -->
     <div class="auth-left">
         <div class="auth-branding">
             <div class="sidebar-brand">
@@ -45,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
         </div>
     </div>
 
-    <!-- right side of page -->
+    <!-- RIGHT SIDE OF LOGIN PAGE: FORM -->
     <div class="auth-right">
         <div class="auth-card">
 

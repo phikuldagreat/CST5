@@ -1,5 +1,7 @@
 <?php
+//Mimics the table "folders" in the database
 class Folder {
+    //PROPERTIES
     public $id = "";
     public $user_id = "";
     public $name = "";
