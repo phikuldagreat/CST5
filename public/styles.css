@@ -23,8 +23,9 @@ html {
 body {
   font-family: "Segoe UI", Tahoma, sans-serif;
   line-height: 1.6;
-  background: linear-gradient(135deg, #0f1a24 0%, #1a2a38 50%, #0d1f2d 100%);
-  background-attachment: fixed;
+  background: linear-gradient(135deg, #06141B, #11212D, #253745, #11212D);
+  background-size: 400% 400%;
+  animation: gradientShift 18s ease infinite;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -35,23 +36,28 @@ main {
   flex: 1;
 }
 
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* =========================
    VARIABLES
 ========================= */
 :root {
-  --primary: #7eb8d4;
-  --primary-dark: #5a9ec0;
-  --secondary: #2a3a4a;
+  --primary: #4A5C6A;
+  --primary-dark: #253745;
+  --secondary: #253745;
   --success: #4a9a6a;
   --danger: #a04040;
   --warning: #a07820;
 
-  --bg: #0f1a24;
-  --white: #1a2a38;
-  --border: #2a3a4a;
-  --text: #c8dde8;
+  --bg: #06141B;
+  --white: #11212D;
+  --border: #253745;
+  --text: #CCD0CF;
 }
-
 /* =========================
    TYPOGRAPHY
 ========================= */
@@ -131,8 +137,8 @@ a:hover {
    NAVBAR
 ========================= */
 .navbar {
-  background: #111f2c;
-  border-bottom: 1px solid #1e2f3e;
+  background: #06141B;
+  border-bottom: 1px solid #253745;
   padding: 1rem 0;
   color: #333;
 }
@@ -142,7 +148,7 @@ a:hover {
   font-weight: 600;
   font-size: 1rem;
   letter-spacing: 0.02em;
-  color: #7eb8d4;
+  color: #CCD0CF;
 }
 
 .navbar .nav-links a {
@@ -157,17 +163,17 @@ a:hover {
   text-align: center;
   padding: 1.5rem;
   font-size: 0.8rem;
-  background: #111f2c;
-  border-top: 1px solid #1e2f3e;
-  color: #4a6a7a;
+  background: #06141B;
+  border-top: 1px solid #253745;
+  color: #4A5C6A;
 }
 
 /* =========================
    CARDS
 ========================= */
 .card {
-  background: #162230;
-  border: 1px solid #1e2f3e;
+  background: #11212D;
+  border: 1px solid #253745;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -203,19 +209,19 @@ button:hover {
 button[type="submit"] {
   width: 100%;
   padding: 0.6rem;
-  background: #7eb8d4;
-  color: #0f1a24;
+  background: #4A5C6A;
+  color: #CCD0CF;
   border: none;
   border-radius: 20px;
   cursor: pointer;
 }
 
 button[type="submit"]:hover {
-  background: #5a9ec0;
+  background: #253745;
 }
 
 button[type="submit"].sidebar-folder-delete {
-  background: #111f2c;
+  background: #06141B;
   color: transparent;
   border: none;
   border-radius: 4px;
@@ -224,9 +230,9 @@ button[type="submit"].sidebar-folder-delete {
 }
 
 button[type="submit"].sidebar-add-folder-btn {
-  background: #111f2c;
-  color: #7eb8d4;
-  border: 1px solid #1e2f3e;
+  background: #06141B;
+  color: #9BA8AB;
+  border: 1px solid #253745;
   border-radius: 6px;
   width: 100%;
   padding: 0.4rem 0;
@@ -253,13 +259,13 @@ input, select, textarea {
   padding: 0.5rem;
   border-radius: 6px;
   font-size: 0.9rem;
-  background: #0f1a24;
-  color: #c8dde8;
-  border: 1px solid #2a3a4a;
+  background: #06141B;
+  color: #CCD0CF;
+  border: 1px solid #253745;
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: #7eb8d4;
+  border-color: #4A5C6A;
   outline: none;
 }
 
@@ -315,7 +321,7 @@ input:focus, textarea:focus, select:focus {
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: #162230;
+  background: #11212D;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -323,16 +329,16 @@ input:focus, textarea:focus, select:focus {
 .table th {
   vertical-align: middle;
   font-size: 0.9rem;
-  background: #111f2c;
-  color: #7eb8d4;
+  background: #06141B;
+  color: #9BA8AB;
 }
 
 .table td {
-  color: #c8dde8;
+  color: #CCD0CF;
 }
 
-.table tr:nth-child(even) { background: #1a2a38; }
-.table tr:hover { background: #1e3040; }
+.table tr:nth-child(even) {background: #253745;}
+.table tr:hover {background: #253745;}
 
 .table th:nth-child(1) { width: 30%; }
 .table th:nth-child(2) { width: 15%; }
@@ -460,8 +466,8 @@ input:focus, textarea:focus, select:focus {
 .auth-card {
   width: 100%;
   max-width: 400px;
-  background: #162230;
-  border: 1px solid #1e2f3e;
+  background: #11212D;
+  border: 1px solid #253745;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   padding: 3rem;
   border-radius: 10px;
@@ -492,8 +498,8 @@ input:focus, textarea:focus, select:focus {
 ========================= */
 .sidebar {
   width: 220px;
-  background: #111f2c;
-  border-right: 1px solid #1e2f3e;
+  background: #06141B;
+  border-right: 1px solid #253745;
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
@@ -506,7 +512,7 @@ input:focus, textarea:focus, select:focus {
 .sidebar-brand {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #7eb8d4;
+  color: #CCD0CF;
   margin-bottom: 2rem;
   letter-spacing: 0.05em;
 }
@@ -518,7 +524,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar-link {
-  color: #8aa0b0;
+  color: #9BA8AB;
   font-size: 0.9rem;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
@@ -527,8 +533,8 @@ input:focus, textarea:focus, select:focus {
 
 .sidebar-link:hover,
 .sidebar-link.active {
-  background: #1a2a38;
-  color: #7eb8d4;
+  background: #11212D;
+  color: #CCD0CF;
   text-decoration: none;
 }
 
@@ -577,9 +583,9 @@ input:focus, textarea:focus, select:focus {
 .sidebar-add-folder input {
   padding: 0.3rem 0.5rem;
   font-size: 0.8rem;
-  background: #111f2c;
-  border: 1px dashed #2a3a4a;
-  color: #c8dde8;
+  background: #06141B;
+  border: 1px dashed #253745;
+  color: #CCD0CF;
 }
 
 .sidebar-add-folder input:focus {
@@ -588,9 +594,9 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar-add-folder-btn {
-  background: #111f2c;
-  border: 1px solid #1e2f3e;
-  color: #7eb8d4;
+  background: #06141B;
+  border: 1px solid #253745;
+  color: #9BA8AB;
   font-size: 0.8rem;
   cursor: pointer;
   text-align: center;
@@ -618,8 +624,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar-user-card {
-  background: #1a2a38;
-  border: 1px solid #1e2f3e;
+  background: #11212D;
+  border: 1px solid #253745;
   border-radius: 8px;
   padding: 1rem;
   display: flex;
