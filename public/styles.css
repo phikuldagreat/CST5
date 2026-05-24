@@ -638,3 +638,24 @@ input:focus, textarea:focus, select:focus {
   display: block;
   text-align: center;
 }
+
+/* =========================
+   ICON
+========================= */
+.sidebar-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  filter: invert(0);
+}
+
+.auth-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 1rem auto;
+  filter: invert(1);
+}
