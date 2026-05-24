@@ -108,7 +108,7 @@ $greeting = $greetings[array_rand($greetings)];
     <!-- sidebar -->
     <aside class="sidebar">
         <div class="sidebar-brand">
-            <img src="/public/assets/TrakkR_Logo.png" alt="TrakkR Logo" class="sidebar-logo">
+            <img src="/public/assets/TrakkR_logo.png" alt="TrakkR Logo" class="sidebar-logo">
             <span class="brand-T">T</span><span class="brand-rakk">rakk</span><span class="brand-R">R</span>
         </div>
         <nav class="sidebar-nav">
@@ -129,7 +129,6 @@ $greeting = $greetings[array_rand($greetings)];
             </div>
             <?php endforeach; ?>
         </nav>
-
         <form method="POST" class="sidebar-add-folder">
             <input type="text" name="folder_name" placeholder="New folder..." required>
             <button type="submit" name="add_folder" class="sidebar-add-folder-btn">+ Add Folder</button>
@@ -137,7 +136,7 @@ $greeting = $greetings[array_rand($greetings)];
         <div class="sidebar-footer">
             <div class="sidebar-user-card">
                 <span class="sidebar-user"><?= $greeting ?>,<br><strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
-                <a href="/logout.php" class="btn btn-danger sidebar-logout">Logout</a>
+                <a href="/logout.php" class="btn btn-danger sidebar-logout" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
             </div>
         </div>
     </aside>
