@@ -432,6 +432,23 @@ input:focus, textarea:focus, select:focus {
   align-items: center;
 }
 
+.edit-inline-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.edit-inline-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.edit-inline-textarea {
+  font-size: 0.85rem;
+  height: 80px;
+  resize: none;
+}
+
 /* =========================
    AUTH SPLIT LAYOUT
 ========================= */

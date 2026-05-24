@@ -51,7 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit"])) {
     $id = $_POST["task_id"];
     $title = $_POST["title"];
-    $controller->edit($id, $user_id, $title);
+    $description = $_POST["description"] ?? "";
+    $controller->edit($id, $user_id, $title, $description);
     header("Location: index.php?updated=1");
     die();
 }
@@ -236,14 +237,30 @@ $greeting = $greetings[array_rand($greetings)];
                             <td class="td-date"><?= date('M d, Y', strtotime($task['created_at'])) ?></td>
                             <td class="td-actions">
                             <div class="flex" style="gap: 0.5rem; align-items: center; justify-content: center;">
-
                                 <?php if (isset($_GET['edit_id']) && $_GET['edit_id'] == $task['id']): ?>
-                                    <form method="POST" class="flex edit-form">
-                                        <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
-                                        <input type="text" name="title" value="<?= htmlspecialchars($task['title']) ?>" class="edit-input">
-                                        <button type="submit" name="edit" class="btn btn-primary btn-action">Save</button>
-                                        <a href="index.php" class="btn btn-secondary btn-action">Cancel</a>
-                                    </form>
+                                    <tr class="<?= $task['status'] === 'complete' ? 'row-complete' : 'row-pending' ?>">
+                                        <td>
+                                            <form method="POST" class="edit-inline-form">
+                                                <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                                                <input type="text" name="title" value="<?= htmlspecialchars($task['title']) ?>" class="edit-input">
+                                                <textarea name="description" class="edit-inline-textarea"><?= htmlspecialchars($task['description'] ?? '') ?></textarea>
+                                                <div class="edit-inline-actions">
+                                                    <button type="submit" name="edit" class="btn btn-primary btn-action">Save</button>
+                                                    <a href="index.php" class="btn btn-secondary btn-action">Cancel</a>
+                                                </div>
+                                            </form>
+                                        </td>
+                                        <td><?= $task['status'] === 'complete' ? '<span class="badge-complete">✓ Complete</span>' : '<span class="badge-pending">● Pending</span>' ?></td>
+                                        <td class="td-date"><?= date('M d, Y', strtotime($task['created_at'])) ?></td>
+                                        <td class="td-actions">
+                                            <div class="flex" style="gap: 0.5rem; align-items: center; justify-content: center;">
+                                                <form method="POST">
+                                                    <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                                                    <button type="submit" name="delete" class="btn btn-danger btn-action" onclick="return confirm('Are you sure you want to delete this task?')">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 <?php else: ?>
                                     <?php if ($task['status'] !== 'complete'): ?>
                                         <a href="?edit_id=<?= $task['id'] ?>" class="btn btn-secondary btn-action">Edit</a>
@@ -263,7 +280,6 @@ $greeting = $greetings[array_rand($greetings)];
                                     </form>
                                     <?php endif; ?>
                                 <?php endif; ?>
-
                             </div>
                         </td>
                     </tr>
