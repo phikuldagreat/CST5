@@ -1,6 +1,6 @@
 <?php
 //Database configuration
-//used Composer to install phpdotenv and read the .env file 
+//used Composer to install PHP dependencies
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
