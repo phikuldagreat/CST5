@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
     <!-- left side of page -->
     <div class="auth-left">
         <div class="auth-branding">
+            <img src="/public/assets/Trakkr_Logo.png" alt="Trakkr Logo" class="auth-logo">
             <h2>Trakkr</h2>
             <p>Stay on top of your tasks.<br>Simple. Clean. Focused.</p>
         </div>
