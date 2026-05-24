@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["login"])) {
         <div class="auth-card">
 
             <h1>Welcome.</h1>
-            <p style="text-align:center; font-size: 0.85rem; margin-bottom: 1.5rem;">Sign in to your account</p>
+            <p style="text-align:center; font-size: 0.85rem; margin-bottom: 1.5rem;">Log in to your account</p>
 
             <?php if (!empty($message)): ?>
                 <div class="alert alert-success"><?= $message ?></div>
