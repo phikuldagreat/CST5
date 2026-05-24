@@ -696,14 +696,14 @@ input:focus, textarea:focus, select:focus {
   object-fit: contain;
   vertical-align: middle;
   margin-right: 0.5rem;
-  filter: invert(1);
+  /* filter: invert(1); */
 }
 
 .auth-logo {
   width: 40px;
   height: 40px;
   object-fit: contain;
-  filter: invert(1);
+  /* filter: invert(1); */
 }
 
 .auth-brand {
