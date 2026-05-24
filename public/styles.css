@@ -23,7 +23,7 @@ html {
 body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  background: linear-gradient(135deg, #323841, #CACBCD, #B3B9C1, #77726E);
+  background: linear-gradient(135deg, #1a1e24, #323841, #4a5260, #77726E);
   background-size: 400% 400%;
   animation: gradientShift 13s ease infinite;
   color: var(--text);
@@ -50,7 +50,7 @@ main {
   --primary-dark: #77726E;
   --secondary: #77726E;
   --success: #4a9a6a;
-  --danger: #a04040;
+  --danger: #77726E;
   --warning: #a07820;
 
   --bg: #F6F2EE;
@@ -176,7 +176,7 @@ a:hover {
 .card {
   background: #F6F2EE;
   border: 1px solid #B3B9C1;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* =========================
@@ -194,7 +194,8 @@ a:hover {
 
 .btn-primary { background: #323841; color: #F6F2EE; }
 .btn-primary:hover { background: #77726E; }
-.btn-danger { background: var(--danger); color: white; }
+.btn-danger { background: #77726E; color: #F6F2EE; }
+.btn-danger:hover { background: #5a5652; }
 .btn-success { background: var(--success); color: white; }
 .btn-secondary { background: #77726E; color: #F6F2EE; }
 
@@ -334,10 +335,12 @@ input:focus, textarea:focus, select:focus {
   font-size: 0.9rem;
   background: #323841;
   color: #CACBCD;
+  padding: 0.75rem 1rem;
 }
 
 .table td {
   color: #323841;
+  padding: 0.75rem 1rem;
 }
 
 .table tr:nth-child(even) { background: #CACBCD; }
@@ -389,6 +392,7 @@ input:focus, textarea:focus, select:focus {
   flex: 1;
   padding: 1rem;
   text-align: center;
+  border-radius: 8px;
 }
 
 .stat-card-number { font-size: 1.5rem; font-weight: 600; color: #323841; }
@@ -455,14 +459,14 @@ input:focus, textarea:focus, select:focus {
 
 .auth-branding h2 {
   font-size: 2.5rem;
-  color: #323841;
+  color: #F6F2EE;
   text-align: left;
   margin-bottom: 1rem;
 }
 
 .auth-branding p {
   font-size: 1.1rem;
-  color: #77726E;
+  color: #CACBCD;
   line-height: 1.8;
 }
 
@@ -471,7 +475,7 @@ input:focus, textarea:focus, select:focus {
   max-width: 400px;
   background: #F6F2EE;
   border: 1px solid #B3B9C1;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   padding: 3rem;
   border-radius: 10px;
 }
@@ -627,8 +631,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar-user-card {
-  background: #77726E;
-  border: 1px solid #77726E;
+  background: #253040;
+  border: 1px solid #4a5260;
   border-radius: 8px;
   padding: 1rem;
   display: flex;
@@ -659,8 +663,6 @@ input:focus, textarea:focus, select:focus {
   height: 40px;
   object-fit: contain;
   filter: invert(0);
-  display: block;
-  margin: 0 auto 1rem auto;
 }
 
 .auth-brand {
@@ -674,5 +676,5 @@ input:focus, textarea:focus, select:focus {
   text-align: left;
   margin: 0;
   font-size: 1.8rem;
-  color: #323841;
+  color: #F6F2EE;
 }
