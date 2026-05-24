@@ -42,8 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
     if (!empty($title)) {
         $controller->add($user_id, $title, $description, $folder_id ?: null);
         $message = "Task added.";
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
     } else {
         $errors = "Title cannot be empty.";
     }
