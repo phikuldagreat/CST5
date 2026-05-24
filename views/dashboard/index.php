@@ -42,6 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
     if (!empty($title)) {
         $controller->add($user_id, $title, $description, $folder_id ?: null);
         $message = "Task added.";
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     } else {
         $errors = "Title cannot be empty.";
     }
@@ -90,8 +92,10 @@ $greetings = [
     "Good day",
     "Time to work",
     "Hello there",
-    "Work, work",
-    "Let's get working"
+    "work, work",
+    "Let's get working",
+    "Yo",
+    "It's a good day to do work"
 ];
 
 $greeting = $greetings[array_rand($greetings)];
