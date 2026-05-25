@@ -82,6 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add_folder"])) {
     }
 }
 
+// EDIT FOLDER FUNCTION
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["edit_folder"])) {
+    $folderController->edit($_POST["folder_id"], $user_id, $_POST["folder_name"]);
+    header("Location: index.php");
+    die();
+}
+
 // DELETE FOLDER FUNCTION
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["delete_folder"])) {
     $folderController->delete($_POST["folder_id"], $user_id);
@@ -131,21 +138,34 @@ $greeting = $greetings[array_rand($greetings)];
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link <?= !$active_folder ? 'active' : '' ?>">All Tasks</a>
         </nav>
-
+        
         <div class="sidebar-section-label">Folders</div>
         <nav class="sidebar-nav">
             <?php foreach ($folders as $folder): ?>
             <div class="sidebar-folder-item">
-                <a href="?folder=<?= $folder['id'] ?>" class="sidebar-link <?= $active_folder == $folder['id'] ? 'active' : '' ?>">
-                    📁 <?= htmlspecialchars($folder['name']) ?>
-                </a>
-                <form method="POST" style="display:inline;">
-                    <input type="hidden" name="folder_id" value="<?= $folder['id'] ?>">
-                    <button type="submit" name="delete_folder" class="sidebar-folder-delete" onclick="return confirm('Delete this folder?')">✕</button>
-                </form>
+                <?php if (isset($_GET['edit_folder']) && $_GET['edit_folder'] == $folder['id']): ?>
+                    <form method="POST" class="sidebar-add-folder" style="flex-direction: row; margin-top: 0;">
+                        <input type="hidden" name="folder_id" value="<?= $folder['id'] ?>">
+                        <input type="text" name="folder_name" value="<?= htmlspecialchars($folder['name']) ?>" required>
+                        <button type="submit" name="edit_folder" class="sidebar-add-folder-btn" style="width: auto; padding: 0.2rem 0.5rem;">✓</button>
+                        <a href="index.php" class="sidebar-add-folder-btn" style="width: auto; padding: 0.2rem 0.5rem; text-align:center;">✕</a>
+                    </form>
+                <?php else: ?>
+                    <a href="?folder=<?= $folder['id'] ?>" class="sidebar-link <?= $active_folder == $folder['id'] ? 'active' : '' ?>">
+                        📁 <?= htmlspecialchars($folder['name']) ?>
+                    </a>
+                    <div style="display:flex; gap: 0.2rem;">
+                        <a href="?edit_folder=<?= $folder['id'] ?>" class="sidebar-folder-delete" style="color: #B3B9C1;">✎</a>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="folder_id" value="<?= $folder['id'] ?>">
+                            <button type="submit" name="delete_folder" class="sidebar-folder-delete" onclick="return confirm('Delete this folder?')">✕</button>
+                        </form>
+                    </div>
+                <?php endif; ?>
             </div>
-            <?php endforeach; ?>
+            <?php endforeach; ?> 
         </nav>
+
         <form method="POST" class="sidebar-add-folder">
             <input type="text" name="folder_name" placeholder="New folder..." required>
             <button type="submit" name="add_folder" class="sidebar-add-folder-btn">+ Add Folder</button>

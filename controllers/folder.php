@@ -28,8 +28,10 @@ class FolderController {
         return $stmt->execute([$user_id, $name]);
     }
 
-    function edit() {
-       // FOLDER EDIT LOGIC 
+    function edit($id, $user_id, $name) {
+        // FOLDER EDIT LOGIC
+        $stmt = $this->conn->prepare("UPDATE folders SET name = ? WHERE id = ? AND user_id = ?");
+        return $stmt->execute([$name, $id, $user_id]);
     }
 
     function delete($id, $user_id) {
