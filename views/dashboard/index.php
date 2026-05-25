@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["add"])) {
 }
 
 if (isset($_GET['added'])) {
+    // MESSAGE SHOWN AFTER TASK IS ADDED
     $message = "Task added.";
 }
 
@@ -138,7 +139,6 @@ $greeting = $greetings[array_rand($greetings)];
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link <?= !$active_folder ? 'active' : '' ?>">All Tasks</a>
         </nav>
-
         <div class="sidebar-section-label">Folders</div>
         <nav class="sidebar-nav">
             <?php foreach ($folders as $folder): ?>
@@ -165,7 +165,6 @@ $greeting = $greetings[array_rand($greetings)];
             </div>
             <?php endforeach; ?> 
         </nav>
-
         <form method="POST" class="sidebar-add-folder">
             <input type="text" name="folder_name" placeholder="New folder..." required>
             <button type="submit" name="add_folder" class="sidebar-add-folder-btn">+ Add Folder</button>
@@ -180,11 +179,9 @@ $greeting = $greetings[array_rand($greetings)];
 
     <!-- MAIN CONTENT -->
     <main class="dashboard-main">
-
         <?php if (!empty($message)): ?>
             <div class="alert alert-success"><?= $message ?></div>
         <?php endif; ?>
-
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger"><?= $errors ?></div>
         <?php endif; ?>

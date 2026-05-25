@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/public/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/public/assets/trakkr_logo.png">
-    <title>TrakkR | Login</title>
+    <title>TrakkR | A task-tracking system.</title>
 </head>
 <body>
 <nav class="navbar"> 

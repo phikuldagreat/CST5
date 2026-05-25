@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["register"])) {
                 <div class="form-group">
                     <label>Password</label>
                     <div class="password-wrapper">
-                        <input type="password" name="password" id="password" placeholder="Enter password" required>
+                        <input type="password" name="password" id="password" placeholder="At least 8 characters" required>
                         <button type="button" class="password-toggle" onclick="this.previousElementSibling.type = this.previousElementSibling.type === 'password' ? 'text' : 'password'; 
                                       this.textContent = this.previousElementSibling.type === 'password' ? 'Show' : 'Hide';">Show
                         </button>
