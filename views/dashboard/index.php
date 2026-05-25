@@ -115,7 +115,7 @@ $greetings = [
     "work, work",
     "Let's get working",
     "Yo",
-    "It's a good day to do work"
+    "Good day to do work"
 ];
 
 $greeting = $greetings[array_rand($greetings)];
@@ -138,7 +138,7 @@ $greeting = $greetings[array_rand($greetings)];
         <nav class="sidebar-nav">
             <a href="index.php" class="sidebar-link <?= !$active_folder ? 'active' : '' ?>">All Tasks</a>
         </nav>
-        
+
         <div class="sidebar-section-label">Folders</div>
         <nav class="sidebar-nav">
             <?php foreach ($folders as $folder): ?>
